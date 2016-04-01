@@ -8,6 +8,7 @@ class Store
   def initialize
     @current_screen = :welcome
     @current_song = nil
+    @play = false
 
     @list = []
     @list_offset = 0
@@ -29,6 +30,7 @@ class Store
         tunes: @sid.tunes
       }
       @current_screen = :play
+      @play = true
       render!
     end
   end
@@ -69,6 +71,21 @@ class Store
       when 13 then
         if @current_screen == :list
           @sid.load_and_play(@list[@list_selected].last, 0)
+        end
+      when 82 then
+        if @current_screen == :list
+          @list_selected = rand(@list.length)
+          @list_offset = @list_selected
+          render!
+          #@sid.load_and_play(@list[@list_selected].last, 0)
+        end
+      when 32 then
+        if @play
+          @play = false
+          @sid.pause
+        else
+          @play = true
+          @sid.unpause
         end
       end
     end

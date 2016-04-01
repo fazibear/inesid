@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 # inesita gem
 gem 'inesita', path: "/Users/fazibear/dev/inesita"
-gem 'opal-sid', path: "/Users/fazibear/dev/opal-sid"
+gem 'opal-sid'
 gem 'bowser'
 
 # add this gems to minify files on build

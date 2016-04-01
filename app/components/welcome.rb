@@ -10,8 +10,8 @@ class Welcome
     li { '                                        ' }
     li { ' PRESS L FOR SONGS LIST                 ' }
     li { ' PRESS P FOR PLAY SCREEN                ' }
+    li { ' PRESS SPACE FOR PAUSE/PLAY             ' }
     li { ' PRESS H FOR HELP (this screen)         ' }
-    li { '                                        ' }
     li { '                                        ' }
     li { '                                        ' }
     li(class: :purple){ '         MADE WITH ♥ BY FAZIBEAR        ' }

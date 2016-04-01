@@ -11,12 +11,6 @@ PATH
       thor (~> 0.19)
       websocket (~> 1.0)
 
-PATH
-  remote: /Users/fazibear/dev/opal-sid
-  specs:
-    opal-sid (0.0.1)
-      opal
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -33,6 +27,8 @@ GEM
       sourcemap (~> 0.1.0)
       sprockets (~> 3.1)
       tilt (>= 1.4)
+    opal-sid (0.0.1)
+      opal
     opal-virtual-dom (0.3.0)
       opal
     rack (1.6.4)
@@ -59,7 +55,7 @@ PLATFORMS
 DEPENDENCIES
   bowser
   inesita!
-  opal-sid!
+  opal-sid
 
 BUNDLED WITH
    1.11.2
