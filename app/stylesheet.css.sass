@@ -1,0 +1,62 @@
+@font-face
+  font-family: 'C64 Pro Mono'
+  src: url('/static/fonts/C64_Pro_Mono-STYLE.eot')
+  src: url('/static/fonts/C64_Pro_Mono-STYLE.eot?#iefix') format('embedded-opentype'), url('/static/fonts/C64_Pro_Mono-STYLE.woff2') format('woff2'), url('/static/fonts/C64_Pro_Mono-STYLE.woff') format('woff'), url('/static/fonts/C64_Pro_Mono-STYLE.ttf') format('truetype'), url('/static/fonts/C64_Pro_Mono-STYLE.svg#C64_Pro_Mono-STYLE') format('svg')
+  font-weight: normal
+  font-style: normal
+
+$COLOR_BLACK: #000000
+$COLOR_WHITE: #FFFFFF
+$COLOR_RED: #68372B
+$COLOR_CYAN: #70A4B2
+$COLOR_PURPLE: #6F3D86
+$COLOR_GREEN: #588D43
+$COLOR_BLUE: #352879
+$COLOR_YELLOW: #B8C76F
+$COLOR_ORANGE: #6F4F25
+$COLOR_BROWN: #433900
+$COLOR_LIGHT_RED: #9A6759
+$COLOR_DARK_GREY: #444444
+$COLOR_GREY: #6C6C6C
+$COLOR_LIGHT_GREEN: #9AD284
+$COLOR_LIGHT_BLUE: #6C5EB5
+$COLOR_LIGHT_GREY: #959595
+
+// $COLOR_BLACK: #000000
+// $COLOR_WHITE: #ffffff
+// $COLOR_RED: #882000
+// $COLOR_CYAN: #68d0a8
+// $COLOR_PURPLE: #a838a0
+// $COLOR_GREEN: #50b818
+// $COLOR_BLUE: #181090
+// $COLOR_YELLOW: #f0e858
+// $COLOR_ORANGE: #a04800
+// $COLOR_BROWN: #472b1b
+// $COLOR_LIGHT_RED: #c87870
+// $COLOR_DARK_GREY: #484848
+// $COLOR_GREY: #808080
+// $COLOR_LIGHT_GREEN: #98ff98
+// $COLOR_LIGHT_BLUE: #5090d0
+// $COLOR_LIGH_GREY: #b8b8b8
+
+$FONT_SIZE: 20px
+
+body
+  background-color: $COLOR_LIGHT_BLUE
+
+#screen
+  font-family: 'C64 Pro Mono'
+  font-size: $FONT_SIZE
+  list-style-type: none
+  margin: 0 auto
+  padding: 0
+
+  width: 40 * $FONT_SIZE
+  height: 25 * $FONT_SIZE
+
+  background-color: $COLOR_BLUE
+  color: $COLOR_LIGHT_BLUE
+
+  li
+    white-space: pre-wrap
+    word-wrap: break-word
