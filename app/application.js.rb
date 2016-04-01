@@ -1,10 +1,14 @@
 # require Inesita
 require 'inesita'
+require 'sid'
 
-# require main parts of application
+require 'bowser/window'
+require 'bowser/http'
+
 require 'router'
 require 'store'
-require 'screen'
+
+require_tree './components'
 
 # when document is ready render application to <body>
 Inesita::Browser.ready? do
@@ -12,5 +16,5 @@ Inesita::Browser.ready? do
   Inesita::Application.new(
     store: Store,
     router: Router,
-  ).mount_to(Inesita::Browser.query_element('body'))
+  ).mount_to(Inesita::Browser.body)
 end

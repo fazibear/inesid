@@ -11,9 +11,17 @@ PATH
       thor (~> 0.19)
       websocket (~> 1.0)
 
+PATH
+  remote: /Users/fazibear/dev/opal-sid
+  specs:
+    opal-sid (0.0.1)
+      opal
+
 GEM
   remote: https://rubygems.org/
   specs:
+    bowser (0.1.6)
+      opal (>= 0.8.0, < 0.11.0)
     concurrent-ruby (1.0.1)
     ffi (1.9.10)
     hike (1.2.3)
@@ -49,7 +57,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bowser
   inesita!
+  opal-sid!
 
 BUNDLED WITH
    1.11.2
