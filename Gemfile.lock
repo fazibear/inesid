@@ -1,5 +1,6 @@
-PATH
-  remote: /Users/fazibear/dev/inesita
+GIT
+  remote: git://github.com/inesita-rb/inesita.git
+  revision: eb02b7b2fc3232f4b6d6de1699488b8cb2eb66e2
   specs:
     inesita (0.4.0)
       listen (~> 3.0)
