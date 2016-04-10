@@ -106,6 +106,7 @@ class Store
   def fetch_list
     @flat = Bowser::HTTP.fetch(FLAT_INDEX).then do |resp|
       @list = resp.json
+      reload!
     end
   end
 

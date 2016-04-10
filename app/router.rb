@@ -2,6 +2,6 @@ class Router
   include Inesita::Router
 
   def routes
-    route '/', to: Screen
+    route '/*all', to: Screen
   end
 end
