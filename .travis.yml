@@ -5,6 +5,7 @@ cache:
 rvm:
   - 2.2.3
 after_success:
+  - npm install -g surge
   - rake hvsc > /dev/null
   - rake index > /dev/null
   - rake deploy > /dev/null
