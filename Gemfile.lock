@@ -39,6 +39,7 @@ GEM
       opal
     rack (1.6.4)
     rack-rewrite (1.5.1)
+    rake (11.1.2)
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
@@ -66,6 +67,7 @@ DEPENDENCIES
   inesita!
   inesita-livereload
   opal-sid
+  rake
   uglifier
 
 BUNDLED WITH
