@@ -1,3 +1,5 @@
 .DS_Store
 /dist
-/static/music
+/static/C64Music
+/static/*.json
+/tmp

@@ -3,7 +3,8 @@ class Store
 
   attr_reader :current_screen, :current_song
 
-  FLAT_INDEX = '/static/music/flat.json'
+  SID_PREFIX = '/static/C64Music'
+  FLAT_INDEX = '/static/flat.json'
 
   def init
     @current_screen = :welcome
@@ -34,7 +35,7 @@ class Store
       render!
     end
     unless router.params[:all].empty?
-      @sid.load_and_play("/static/music/#{router.params[:all]}", 0)
+      @sid.load_and_play("#{SID_PREFIX}/#{router.params[:all]}", 0)
     end
   end
 
@@ -73,15 +74,15 @@ class Store
         end
       when 13 then
         if @current_screen == :list
-          Inesita::Browser.push_state(@list[@list_selected].last.gsub('/static/music',''))
+          Inesita::Browser.push_state(@list[@list_selected].last.gsub(SID_PREFIX,''))
           @sid.load_and_play(@list[@list_selected].last, 0)
         end
       when 82 then
-        if @current_screen == :list
+        if @current_screen == :list || @current_screen == :play
           @list_selected = rand(@list.length)
           @list_offset = @list_selected
           render!
-          #@sid.load_and_play(@list[@list_selected].last, 0)
+          @sid.load_and_play(@list[@list_selected].last, 0) if @current_screen == :play
         end
       when 32 then
         if @play
