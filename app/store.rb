@@ -5,7 +5,7 @@ class Store
 
   FLAT_INDEX = '/static/music/flat.json'
 
-  def initialize
+  def init
     @current_screen = :welcome
     @current_song = nil
     @play = false
@@ -32,6 +32,9 @@ class Store
       @current_screen = :play
       @play = true
       render!
+    end
+    unless router.params[:all].empty?
+      @sid.load_and_play("/static/music/#{router.params[:all]}", 0)
     end
   end
 
@@ -70,6 +73,7 @@ class Store
         end
       when 13 then
         if @current_screen == :list
+          Inesita::Browser.push_state(@list[@list_selected].last.gsub('/static/music',''))
           @sid.load_and_play(@list[@list_selected].last, 0)
         end
       when 82 then
