@@ -32,3 +32,5 @@ task :index do
   end.to_json
   File.write('./static/flat.json', flat)
 end
+
+task :default => []
