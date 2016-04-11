@@ -82,7 +82,10 @@ class Store
           @list_selected = rand(@list.length)
           @list_offset = @list_selected
           render!
-          @sid.load_and_play(@list[@list_selected].last, 0) if @current_screen == :play
+          if @current_screen == :play
+            Inesita::Browser.push_state(@list[@list_selected].last.gsub(SID_PREFIX, '').gsub(SID_POSTFIX, ''))
+            @sid.load_and_play(@list[@list_selected].last, 0)
+          end
         end
       when 32 then
         if @play
