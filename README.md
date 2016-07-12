@@ -1,5 +1,14 @@
-# inesid
+# Inesid
 
+Retro Web SID Player
+
+[http://inesid.surge.sh]()
+
+## Screenshot
+
+![Alt text](screenshot.png?raw=true "Inesid")
+
+## Development
 ```sh
 $ bundle install
 $ bundle exec inesita server
