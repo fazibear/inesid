@@ -27,8 +27,8 @@ end
 desc 'Index HVSC SID Collection List'
 task :list do
   list = Dir["#{HVSC_PREFIX}**/*.sid"].map do |path|
-    path = Pathname.new(path)
-    [path.basename.to_s, path.to_s[1..-1]]
+    path = Pathname.new(path.gsub(HVSC_PREFIX, ''))
+    [path.basename.to_s, path.to_s]
   end.sort do |a1,a2|
     a1.first <=> a2.first
   end
@@ -39,7 +39,7 @@ desc 'Index HVSC SID Collection Tree'
 task :tree do
   tree = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
   Dir["#{HVSC_PREFIX}**/*.sid"].each do |file|
-    path = file.gsub('HVSC_PREFIX', '').split('/')
+    path = file.gsub(HVSC_PREFIX, '').split('/')
     name = path.pop
     path.inject(tree) {|h, k|
       h[k]

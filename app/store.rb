@@ -89,8 +89,8 @@ class Store
           @list_offset = @list_selected
           render!
           if @current_screen == :play
-            Inesita::Browser.push_state(@list[@list_selected].last.gsub(SID_POSTFIX, ''))
-            @sid.load_and_play(@list[@list_selected].last, 0)
+            Inesita::Browser.push_state("/" + @list[@list_selected].last.gsub(SID_POSTFIX, ''))
+            @sid.load_and_play("#{Store::SID_PREFIX}/#{@list[@list_selected].last}", 0)
           end
         end
       when 32 then play_pause
