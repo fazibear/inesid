@@ -44,8 +44,12 @@ class Store
       render!
     end
     unless router.params[:all].empty?
-      @sid.load_and_play("#{SID_PREFIX}/#{router.params[:all]}#{SID_POSTFIX}", 0)
+      play_sid("#{router.params[:all]}#{SID_POSTFIX}")
     end
+  end
+
+  def play_sid(path)
+    @sid.load_and_play("#{SID_PREFIX}/#{path}", 0)
   end
 
   def hook_time_refresh
@@ -79,7 +83,7 @@ class Store
   def play_random
     rand = rand(@list.length)
     Inesita::Browser.push_state("/" + @list[rand].last.gsub(SID_POSTFIX, ''))
-    @sid.load_and_play("#{Store::SID_PREFIX}/#{@list[rand].last}", 0)
+    play_sid(@list[rand].last)
   end
 
   def hook_keys
