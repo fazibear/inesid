@@ -1,6 +1,7 @@
 class Store
   include Inesita::Store
   include StoreList
+  include StoreTree
   attr_reader :current_screen, :current_song
 
   SID_PREFIX = '/static/C64Music'
@@ -13,12 +14,18 @@ class Store
     @current_song = nil
     @play = false
 
-    @list = []
+    @list = ['Loading ...']
     @list_offset = 0
     @list_selected = 0
 
+    @tree = {"Loading ..." => nil}
+    @tree_offset = 0
+    @tree_selected = 0
+    @tree_path = []
+
     setup_sid
     fetch_list
+    fetch_tree
     hook_time_refresh
     hook_keys
   end
@@ -79,10 +86,13 @@ class Store
       when 84 then @current_screen = :tree; render!
       when 38 then
         list_up if @current_screen == :list
+        tree_up if @current_screen == :tree
       when 40 then
         list_down if @current_screen == :list
+        tree_down if @current_screen == :tree
       when 13 then
-        list_play if @current_screen == :list
+        list_enter if @current_screen == :list
+        tree_enter if @current_screen == :tree
       when 82 then
         if @current_screen == :list || @current_screen == :play
           @list_selected = rand(@list.length)

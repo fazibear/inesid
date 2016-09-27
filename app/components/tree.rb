@@ -4,10 +4,10 @@ class Tree
   def render
     li(class: :yellow){ ' ████████ ' }
     li { '                                         ' }
-    li(class: :yellow){ ' /                                        ' }
+    li(class: :yellow){ store.tree_path }
     li { '                                         ' }
-    store.list.each do |list|
-      li { list }
+    store.tree.each do |element|
+      li { element }
     end
   end
 end
