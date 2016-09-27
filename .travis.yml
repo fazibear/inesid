@@ -3,7 +3,7 @@ sudo: false
 cache:
   bundler: true
 rvm:
-  - 2.2.3
+  - 2.3
 branches:
   only:
     - master

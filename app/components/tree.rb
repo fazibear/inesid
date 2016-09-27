@@ -1,9 +1,11 @@
-class List
+class Tree
   include Inesita::Component
 
   def render
     li(class: :yellow){ ' ████████ ' }
-    li { '                                        ' }
+    li { '                                         ' }
+    li(class: :yellow){ ' /                                        ' }
+    li { '                                         ' }
     store.list.each do |list|
       li { list }
     end

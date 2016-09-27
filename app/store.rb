@@ -1,10 +1,12 @@
 class Store
   include Inesita::Store
-
+  include StoreList
   attr_reader :current_screen, :current_song
 
   SID_PREFIX = '/static/C64Music'
-  FLAT_INDEX = '/static/flat.json'
+  TREE_JSON = '/static/tree.json'
+  LIST_JSON = '/static/list.json'
+
   SID_POSTFIX = '.sid'
   def init
     @current_screen = :welcome
@@ -47,63 +49,19 @@ class Store
     end
   end
 
-  def hook_keys
-    Bowser.window.on(:keydown) do |e|
-      case e.which
-      when 72 then @current_screen = :welcome; render!
-      when 80 then
-        if @current_song
-          @current_screen = :play
-          render!
-        end
-      when 76 then @current_screen = :list; render!
-      when 68 then #dir
-      when 38 then
-        if @current_screen == :list
-          @list_selected -= 1
-          @list_selected = 0 if @list_selected < 0
-          fix_list_offset(false)
-          render!
-        end
-      when 40 then
-        if @current_screen == :list
-          @list_selected += 1
-          @list_selected = @list.length - 1 if @list_selected > @list.length - 1
-          fix_list_offset(true)
-          render!
-        end
-      when 13 then
-        if @current_screen == :list
-          Inesita::Browser.push_state(@list[@list_selected].last.gsub(SID_PREFIX, '').gsub(SID_POSTFIX, ''))
-          @sid.load_and_play(@list[@list_selected].last, 0)
-        end
-      when 82 then
-        if @current_screen == :list || @current_screen == :play
-          @list_selected = rand(@list.length)
-          @list_offset = @list_selected
-          render!
-          if @current_screen == :play
-            Inesita::Browser.push_state(@list[@list_selected].last.gsub(SID_PREFIX, '').gsub(SID_POSTFIX, ''))
-            @sid.load_and_play(@list[@list_selected].last, 0)
-          end
-        end
-      when 32 then
-        if @play
-          @play = false
-          @sid.pause
-        else
-          @play = true
-          @sid.unpause
-        end
-      end
+  def go_to_play
+    if @current_song
+      @current_screen = :play
     end
   end
 
-  def fix_list_offset(down)
-    unless @list_selected >= @list_offset && @list_selected <= @list_offset + 17
-      @list_offset += down ? 1 : -1
-      @list_offset = 0 if @list_offset < 0
-      @list_offset = @list.length - 17 if @list_offset > @list.length - 17
+  def play_pause
+    if @play
+      @play = false
+      @sid.pause
+    else
+      @play = true
+      @sid.unpause
     end
   end
 
@@ -111,16 +69,32 @@ class Store
     Time.at(@sid.play_time).utc.strftime("%H:%M:%S")
   end
 
-  def fetch_list
-    @flat = Bowser::HTTP.fetch(FLAT_INDEX).then do |resp|
-      @list = resp.json
-      render!
-    end
-  end
-
-  def list
-    @list[@list_offset..@list_offset+17].each_with_index.map do |l, idx|
-      " #{@list_offset + idx == @list_selected ? ">" : " "} #{l.first[0..34]}"
+  def hook_keys
+    Bowser.window.on(:keydown) do |e|
+      puts e.which
+      case e.which
+      when 72 then @current_screen = :welcome; render!
+      when 80 then go_to_play; render!
+      when 76 then @current_screen = :list; render!
+      when 84 then @current_screen = :tree; render!
+      when 38 then
+        list_up if @current_screen == :list
+      when 40 then
+        list_down if @current_screen == :list
+      when 13 then
+        list_play if @current_screen == :list
+      when 82 then
+        if @current_screen == :list || @current_screen == :play
+          @list_selected = rand(@list.length)
+          @list_offset = @list_selected
+          render!
+          if @current_screen == :play
+            Inesita::Browser.push_state(@list[@list_selected].last.gsub(SID_POSTFIX, ''))
+            @sid.load_and_play(@list[@list_selected].last, 0)
+          end
+        end
+      when 32 then play_pause
+      end
     end
   end
 end

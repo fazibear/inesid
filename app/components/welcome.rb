@@ -2,17 +2,13 @@ class Welcome
   include Inesita::Component
 
   def render
-    li(class: :cyan){ '████████████████████████████████████████' }
-    li(class: :cyan){ '████████████████' }
-    li(class: :cyan){ '████████████████████████████████████████' }
-    li { '                                        ' }
     li(class: :yellow){ '                  USAGE                 ' }
     li { '                                        ' }
     li { ' PRESS L FOR SONGS LIST                 ' }
+    li { ' PRESS T FOR SONGS TREE                 ' }
     li { ' PRESS P FOR PLAY SCREEN                ' }
     li { ' PRESS SPACE FOR PAUSE/PLAY             ' }
     li { ' PRESS H FOR HELP (this screen)         ' }
-    li { '                                        ' }
     li { '                                        ' }
     li(class: :purple){ '         MADE WITH ♥ BY FAZIBEAR        ' }
     li { '                                        ' }
@@ -27,5 +23,5 @@ class Welcome
     li { ' HVSC (sid collection)                  ' }
     li { ' http://www.hvsc.c64.org                ' }
     li { '                                        ' }
-	end
+  end
 end

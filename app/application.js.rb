@@ -6,6 +6,7 @@ require 'bowser/window'
 require 'bowser/http'
 
 require 'router'
+require 'store_list'
 require 'store'
 
 require_tree './components'
