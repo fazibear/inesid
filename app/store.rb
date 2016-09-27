@@ -84,7 +84,6 @@ class Store
 
   def hook_keys
     Bowser.window.on(:keydown) do |e|
-      puts e.which
       case e.which
       when 72 then @current_screen = :welcome; render!
       when 80 then go_to_play; render!
