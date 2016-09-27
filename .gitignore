@@ -3,3 +3,4 @@
 /static/C64Music
 /static/*.json
 /tmp
+node_modules
