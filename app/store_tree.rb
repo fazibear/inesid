@@ -51,6 +51,11 @@ module StoreTree
     render!
   end
 
+  def tree_random
+    @tree_offset = @tree_selected = rand(nested_tree.length)
+    render!
+  end
+
   def fix_tree_offset(down)
     unless @tree_selected >= @tree_offset && @tree_selected <= @tree_offset + 15
       @tree_offset += down ? 1 : -1

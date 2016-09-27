@@ -31,6 +31,11 @@ module StoreList
     render!
   end
 
+  def list_random
+    @tree_offset = @list_selected = rand(@list.length)
+    render!
+  end
+
   def fix_list_offset(down)
     unless @list_selected >= @list_offset && @list_selected <= @list_offset + 17
       @list_offset += down ? 1 : -1

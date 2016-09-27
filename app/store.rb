@@ -76,6 +76,12 @@ class Store
     Time.at(@sid.play_time).utc.strftime("%H:%M:%S")
   end
 
+  def play_random
+    rand = rand(@list.length)
+    Inesita::Browser.push_state("/" + @list[rand].last.gsub(SID_POSTFIX, ''))
+    @sid.load_and_play("#{Store::SID_PREFIX}/#{@list[rand].last}", 0)
+  end
+
   def hook_keys
     Bowser.window.on(:keydown) do |e|
       puts e.which
@@ -94,15 +100,9 @@ class Store
         list_enter if @current_screen == :list
         tree_enter if @current_screen == :tree
       when 82 then
-        if @current_screen == :list || @current_screen == :play
-          @list_selected = rand(@list.length)
-          @list_offset = @list_selected
-          render!
-          if @current_screen == :play
-            Inesita::Browser.push_state("/" + @list[@list_selected].last.gsub(SID_POSTFIX, ''))
-            @sid.load_and_play("#{Store::SID_PREFIX}/#{@list[@list_selected].last}", 0)
-          end
-        end
+        list_random if @current_screen == :list
+        tree_random if @current_screen == :tree
+        play_random if @current_screen == :play
       when 32 then play_pause
       end
     end
