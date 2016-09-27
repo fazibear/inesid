@@ -17,7 +17,6 @@ module StoreTree
   end
 
   def tree_enter
-    puts nested_tree.keys[@tree_selected - 1]
     if @tree_selected == 0
       @tree_path.pop
     elsif nested_tree[nested_tree.keys[@tree_selected - 1]]
