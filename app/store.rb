@@ -31,6 +31,7 @@ class Store
   end
 
   def setup_sid
+    @asid = ASID.new
     @sid = SID.new
     @sid.on_load do |x|
       @current_song = {
@@ -42,6 +43,9 @@ class Store
       @current_screen = :play
       @play = true
       render!
+    end
+    @sid.on_cycle do |mem|
+      @asid.tick(mem)
     end
     unless router.params[:all].empty?
       play_sid("#{router.params[:all]}#{SID_POSTFIX}")
