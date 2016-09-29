@@ -22,6 +22,7 @@ module StoreTree
     elsif nested_tree[nested_tree.keys[@tree_selected - 1]]
       @tree_path << nested_tree.keys[@tree_selected - 1]
       @tree_selected = 0
+      @tree_offset = 0
     else
       path = "#{@tree_path.join('/')}/#{nested_tree.keys[@tree_selected - 1]}"
       Inesita::Browser.push_state('/' + path.gsub(Store::SID_POSTFIX, ''))

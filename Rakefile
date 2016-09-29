@@ -26,7 +26,7 @@ end
 
 desc 'Index HVSC SID Collection List'
 task :list do
-  list = Dir["#{HVSC_PREFIX}**/*.sid"].map do |path|
+  list = Dir["#{HVSC_PREFIX}**/*.sid"].sort.map do |path|
     path = Pathname.new(path.gsub(HVSC_PREFIX, ''))
     [path.basename.to_s, path.to_s]
   end.sort do |a1,a2|
