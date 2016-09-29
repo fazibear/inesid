@@ -9,6 +9,7 @@ class Store
   LIST_JSON = '/static/list.json'
 
   SID_POSTFIX = '.sid'
+
   def init
     @current_screen = :welcome
     @current_song = nil
@@ -44,9 +45,16 @@ class Store
       @play = true
       render!
     end
-    @sid.on_cycle do |mem|
-      @asid.tick(mem)
+    WebMidi.new(sysex: true) do |midi|
+      $console.log midi.outputs
+      @asid.setMidiOut(
+        midi.outputs[6].to_n
+      )
+      @sid.on_memory_write do |addr, val|
+        @asid.write(addr, val)
+      end
     end
+
     unless router.params[:all].empty?
       play_sid("#{router.params[:all]}#{SID_POSTFIX}")
     end
