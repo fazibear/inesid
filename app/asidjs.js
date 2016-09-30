@@ -2,7 +2,6 @@ function ASID(){
   this.writeCount = 0;
   this.midiOut = null;
   this.setMidiOut = function(midiOut){
-    console.log(midiOut);
     this.midiOut = midiOut;
   };
 
