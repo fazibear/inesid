@@ -32,7 +32,7 @@ module StoreList
   end
 
   def list_random
-    @tree_offset = @list_selected = rand(@list.length)
+    @list_offset = @list_selected = rand(@list.length)
     render!
   end
 
