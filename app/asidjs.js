@@ -1,28 +1,4 @@
-function interval(duration, fn){
-  this.baseline = undefined
-
-  this.run = function(){
-    if(this.baseline === undefined){
-      this.baseline = new Date().getTime()
-    }
-    fn()
-    var end = new Date().getTime()
-    this.baseline += duration
-
-    var nextTick = duration - (end - this.baseline)
-    if(nextTick<0){
-      nextTick = 0
-    }
-    (function(i){
-        i.timer = setTimeout(function(){
-        i.run(end)
-      }, nextTick)
-    })(this)
-  }
-}
-
 function ASID(){
-
   this.writeCount = 0;
   this.midiOut = null;
   this.setMidiOut = function(midiOut){
@@ -43,18 +19,17 @@ function ASID(){
     0x12, 0x13, 0x14, 0x15, 0x19, 0x1a, 0x1b
   ]
 
-  this.oldMemory = [];
+  this.start = function(){
+    this.asidReg[0x18-3] = (this.asidReg[0x18-3] & 0x0f) | 0x100
+    this.flush()
+  }
 
-  // this.tick = function(memory){
-  //   for(var i = 0; i < this.asidRegSize; ++i){
-  //     if(memory[i] != this.oldMemory[i]){
-  //       this.write(i, memory[i]);
-  //     }
-  //   }
-  //   this.oldMemory = memory;
-  // }
+  this.stop = function(){
+    this.asidReg[0x18-3] = (this.asidReg[0x18-3] & 0xf0) | 0x100
+    this.flush()
+  }
 
-  this.flush = function(sth){
+  this.flush = function(){
     var stream = [];
     var updateRequired = 0;
 
@@ -101,7 +76,7 @@ function ASID(){
     stream.push(0xf7);
 
     if(this.midiOut){
-      this.midiOut.send(stream, 0, 0);
+      this.midiOut.send(stream);
     }
 
     for(var i = 0; i < this.asidRegSize; ++i){
@@ -110,10 +85,10 @@ function ASID(){
   }
 
   this.write = function(addr, data){
-    this.writeCount++;
     addr = addr - 0xd400;
-
     if(addr < 0 || addr >= this.asidRegSize) return;
+
+    this.writeCount++;
 
     mappedAddr = this.map[addr];
 
@@ -126,22 +101,15 @@ function ASID(){
     }
 
     if(this.asidReg[mappedAddr] & 0x100) {
-      if(mappedAddr >= 0x16) {
-        this.flush();
-      }
+      this.writeCount = 0
+      this.flush();
     }
 
     this.asidReg[mappedAddr] = data | 0x100;
 
-    if(this.writeCount > 15){
+    if(this.writeCount > 25){
       this.writeCount = 0
       this.flush();
     }
   }
-
-  // this.periodic = new interval(20, function(){
-  //   this.flush(1);
-  // }.bind(this));
-  // this.periodic.run();
-
 }
