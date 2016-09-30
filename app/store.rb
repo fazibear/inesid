@@ -33,7 +33,7 @@ class Store
 
   def setup_sid
     @asid = ASID.new
-    @sid = SID.new
+    @sid = SID.new(1024)
     @sid.on_load do |x|
       @current_song = {
         title: @sid.title,
@@ -61,6 +61,7 @@ class Store
   end
 
   def play_sid(path)
+    @asid.start if @asid
     @sid.load_and_play("#{SID_PREFIX}/#{path}", 0)
   end
 
@@ -81,9 +82,11 @@ class Store
   def play_pause
     if @play
       @play = false
+      @asid.stop if @asid
       @sid.pause
     else
       @play = true
+      @asid.start if @asid
       @sid.unpause
     end
   end
