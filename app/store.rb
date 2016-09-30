@@ -2,13 +2,14 @@ class Store
   include Inesita::Store
   include StoreList
   include StoreTree
-  attr_reader :current_screen, :current_song
+  attr_reader :current_screen, :current_song, :midi_out
 
   SID_PREFIX = '/static/C64Music'
   TREE_JSON = '/static/tree.json'
   LIST_JSON = '/static/list.json'
 
   SID_POSTFIX = '.sid'
+
   def init
     @current_screen = :welcome
     @current_song = nil
@@ -23,6 +24,9 @@ class Store
     @tree_selected = 0
     @tree_path = []
 
+    @midi_out = WebMidi.support?
+    @midi_out_index = -1
+
     setup_sid
     fetch_list
     fetch_tree
@@ -31,7 +35,8 @@ class Store
   end
 
   def setup_sid
-    @sid = SID.new
+    @asid = ASID.new
+    @sid = SID.new(1024)
     @sid.on_load do |x|
       @current_song = {
         title: @sid.title,
@@ -43,12 +48,17 @@ class Store
       @play = true
       render!
     end
+    @sid.on_memory_write do |addr, val|
+      @asid.write(addr, val)
+    end
+
     unless router.params[:all].empty?
       play_sid("#{router.params[:all]}#{SID_POSTFIX}")
     end
   end
 
   def play_sid(path)
+    @asid.start if @asid
     @sid.load_and_play("#{SID_PREFIX}/#{path}", 0)
   end
 
@@ -69,9 +79,11 @@ class Store
   def play_pause
     if @play
       @play = false
+      @asid.stop if @asid
       @sid.pause
     else
       @play = true
+      @asid.start if @asid
       @sid.unpause
     end
   end
@@ -84,6 +96,17 @@ class Store
     rand = rand(@list.length)
     Inesita::Browser.push_state("/" + @list[rand].last.gsub(SID_POSTFIX, ''))
     play_sid(@list[rand].last)
+  end
+
+  def change_midi
+    WebMidi.new(sysex: true) do |midi|
+      @midi_out_index += 1
+      @midi_out_index = 0 if midi.outputs.length <= @midi_out_index
+      @asid.setMidiOut(
+        @midi_out = midi.outputs[@midi_out_index]
+      )
+      render!
+    end
   end
 
   def hook_keys
@@ -107,6 +130,7 @@ class Store
         tree_random if @current_screen == :tree
         play_random if @current_screen == :play
       when 32 then play_pause
+      when 77 then change_midi
       end
     end
   end

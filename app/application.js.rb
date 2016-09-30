@@ -1,11 +1,13 @@
 # require Inesita
 require 'inesita'
 require 'sid'
+require 'web-midi'
 
 require 'bowser/window'
 require 'bowser/http'
 
 require 'router'
+require 'asid'
 require 'store_list'
 require 'store_tree'
 require 'store'
