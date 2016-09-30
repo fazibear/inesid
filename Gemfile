@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem 'inesita', path: "/Users/fazibear/dev/inesita/"
+gem 'inesita'
 gem 'inesita-livereload'
 
 gem 'opal-sid'
