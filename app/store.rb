@@ -2,7 +2,7 @@ class Store
   include Inesita::Store
   include StoreList
   include StoreTree
-  attr_reader :current_screen, :current_song
+  attr_reader :current_screen, :current_song, :midi_out
 
   SID_PREFIX = '/static/C64Music'
   TREE_JSON = '/static/tree.json'
@@ -23,6 +23,9 @@ class Store
     @tree_offset = 0
     @tree_selected = 0
     @tree_path = []
+
+    @midi_out = WebMidi.support?
+    @midi_out_index = -1
 
     setup_sid
     fetch_list
@@ -45,14 +48,8 @@ class Store
       @play = true
       render!
     end
-    WebMidi.new(sysex: true) do |midi|
-      $console.log midi.outputs
-      @asid.setMidiOut(
-        midi.outputs[6].to_n
-      )
-      @sid.on_memory_write do |addr, val|
-        @asid.write(addr, val)
-      end
+    @sid.on_memory_write do |addr, val|
+      @asid.write(addr, val)
     end
 
     unless router.params[:all].empty?
@@ -101,6 +98,17 @@ class Store
     play_sid(@list[rand].last)
   end
 
+  def change_midi
+    WebMidi.new(sysex: true) do |midi|
+      @midi_out_index += 1
+      @midi_out_index = 0 if midi.outputs.length <= @midi_out_index
+      @asid.setMidiOut(
+        @midi_out = midi.outputs[@midi_out_index]
+      )
+      render!
+    end
+  end
+
   def hook_keys
     Bowser.window.on(:keydown) do |e|
       case e.which
@@ -122,6 +130,7 @@ class Store
         tree_random if @current_screen == :tree
         play_random if @current_screen == :play
       when 32 then play_pause
+      when 77 then change_midi
       end
     end
   end
