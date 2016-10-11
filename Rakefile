@@ -6,7 +6,7 @@ HVSC_PREFIX = './static/C64Music/'
 
 desc 'build'
 task :build do
-  cp 'cp _redirects dist/_redirects'
+  sh 'cp _redirects dist/_redirects'
   sh 'bundle exec inesita build -f > /dev/null'
 end
 
