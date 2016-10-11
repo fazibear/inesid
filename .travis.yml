@@ -11,4 +11,5 @@ after_success:
   - npm install -g surge
   - rake hvsc > /dev/null
   - rake index > /dev/null
+  - rake build > /dev/null
   - rake deploy > /dev/null

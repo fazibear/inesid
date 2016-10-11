@@ -4,9 +4,14 @@ require 'pathname'
 
 HVSC_PREFIX = './static/C64Music/'
 
+
+desc 'build'
+task :build do
+  sh 'bundle exec inesita build -f'
+end
+
 desc 'deploy'
 task :deploy do
-  sh 'bundle exec inesita build -f'
   sh 'cp dist/index.html dist/200.html'
   sh 'surge -p ./dist -d inesid.surge.sh'
 end
@@ -50,4 +55,4 @@ end
 
 task :index => [:list, :tree]
 
-task :default => []
+task :default => [:hvsc, :index, :build]
