@@ -7,7 +7,7 @@ HVSC_PREFIX = './static/C64Music/'
 
 desc 'build'
 task :build do
-  sh 'bundle exec inesita build -f'
+  sh 'bundle exec inesita build -f > /dev/null'
 end
 
 desc 'deploy'
