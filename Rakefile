@@ -6,13 +6,8 @@ HVSC_PREFIX = './static/C64Music/'
 
 desc 'build'
 task :build do
+  cp 'cp _redirects dist/_redirects'
   sh 'bundle exec inesita build -f > /dev/null'
-end
-
-desc 'deploy'
-task :deploy do
-  sh 'cp dist/index.html dist/200.html'
-  sh 'surge -p ./dist -d inesid.surge.sh'
 end
 
 desc 'Download HVSC SID Collection'
@@ -54,4 +49,4 @@ end
 
 task :index => [:list, :tree]
 
-task :default => [:hvsc, :index, :build]
+task :deploy => [:hvsc, :index, :build]
