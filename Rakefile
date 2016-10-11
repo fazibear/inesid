@@ -25,7 +25,7 @@ task :hvsc, [:hvsc] do |t, args|
   sh "curl #{url} > ./tmp/hvsc.zip"
   puts "Unzipping ..."
   sh "unzip -o ./tmp/hvsc.zip -d ./tmp"
-  sh "unzip -o ./tmp/C64Music.zip -d ./static"
+  sh "unzip -o ./tmp/C64Music.zip -d ./static > /dev/null"
   rm_rf "tmp"
 end
 
