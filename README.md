@@ -2,7 +2,7 @@
 
 Retro Web SID Player
 
-[http://inesid.surge.sh](http://inesid.surge.sh)
+[http://inesid.surge.sh](https://inesid.fazibear.me)
 
 ## Screenshot
 
