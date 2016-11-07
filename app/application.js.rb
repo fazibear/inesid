@@ -1,5 +1,7 @@
 # require Inesita
 require 'inesita'
+require 'inesita-router'
+
 require 'sid'
 require 'web-midi'
 
@@ -14,11 +16,19 @@ require 'store'
 
 require_tree './components'
 
-# when document is ready render application to <body>
+class Application
+  include Inesita::Component
+
+  inject Store
+  inject Router
+
+  def render
+    div id: 'screen' do
+      component router
+    end
+  end
+end
+
 Inesita::Browser.ready? do
-  # setup Inesita application
-  Inesita::Application.new(
-    store: Store,
-    router: Router,
-  ).mount_to(Inesita::Browser.body)
+  Application.mount_to(Inesita::Browser.body)
 end

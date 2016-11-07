@@ -1,5 +1,5 @@
 class Store
-  include Inesita::Store
+  include Inesita::Injection
   include StoreList
   include StoreTree
   attr_reader :current_screen, :current_song, :midi_out
