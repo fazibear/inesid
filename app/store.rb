@@ -10,7 +10,7 @@ class Store
 
   SID_POSTFIX = '.sid'
 
-  def initialize
+  def init
     @current_screen = :welcome
     @current_song = nil
     @play = false
