@@ -1,9 +1,3 @@
-PATH
-  remote: ../opal-virtual-dom
-  specs:
-    opal-virtual-dom (0.5.1)
-      opal
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -39,6 +33,8 @@ GEM
       sprockets (~> 3.1)
       tilt (>= 1.4)
     opal-sid (0.0.4)
+      opal
+    opal-virtual-dom (0.5.1)
       opal
     opal-web-midi (0.0.2)
       opal
@@ -78,7 +74,6 @@ DEPENDENCIES
   inesita-livereload
   inesita-router
   opal-sid
-  opal-virtual-dom!
   opal-web-midi
   rake
   uglifier
