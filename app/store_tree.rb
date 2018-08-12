@@ -26,7 +26,8 @@ module StoreTree
     else
       path = "#{@tree_path.join('/')}/#{nested_tree.keys[@tree_selected - 1]}"
       Inesita::Browser.push_state('/' + path.gsub(Store::SID_POSTFIX, ''))
-      play_sid(path)
+      set_sid(path)
+      play_sid
     end
     render!
   end

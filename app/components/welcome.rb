@@ -2,14 +2,18 @@ class Welcome
   include Inesita::Component
 
   def render
-    li(class: :yellow){ '                                  ' }
+    li {
+      span(class: :yellow){ ' ██ ' }
+      span(class: :purple){ '       MADE WITH ♥ BY FAZIBEAR ' }
+    }
     li { '                                        ' }
     li { ' PRESS T/L FOR SONGS TREE / LIST        ' }
+    li { ' PRESS 1-0 FOR PLAY TUNE                ' }
     li { ' PRESS P FOR PLAY SCREEN                ' }
     li { ' PRESS SPACE FOR PAUSE/PLAY             ' }
     li { ' PRESS H FOR HELP (this screen)         ' }
-    li { ' PRESS M TO CHANGE MIDI PORT FOR ASID   ' }
     li { ' ' }
+    li { ' PRESS M TO CHANGE MIDI PORT FOR ASID   ' }
     li(class: :orange){
       case store.midi_out
       when false then ' MIDI: NOT SUPPORTED'
@@ -18,7 +22,7 @@ class Welcome
       end
     }
     li { '                                        ' }
-    li(class: :purple){ '        MADE WITH ♥ BY FAZIBEAR    ' }
+    li(class: :cyan) { '   https://www.patreon.com/fazibear' }
     li { '                                        ' }
     li { ' INESITA (web framework)                ' }
     li { ' https://github.com/inesita-rb/inesita  ' }
@@ -28,6 +32,5 @@ class Welcome
     li { '                                        ' }
     li { ' HVSC (sid collection)                  ' }
     li { ' http://www.hvsc.c64.org                ' }
-    li { '                                        ' }
   end
 end

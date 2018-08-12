@@ -12,7 +12,10 @@ class Store
 
   def init
     @current_screen = :welcome
+    @current_path = nil
     @current_song = nil
+    @current_tune = 0
+
     @play = false
 
     @list = ['Loading ...']
@@ -53,13 +56,22 @@ class Store
     end
 
     unless router.params[:all].empty?
-      play_sid("#{router.params[:all]}#{SID_POSTFIX}")
+      set_sid("#{router.params[:all]}#{SID_POSTFIX}")
+      play_sid
     end
   end
 
-  def play_sid(path)
+  def set_sid(path)
+    @current_path = "#{SID_PREFIX}/#{path}"
+    @current_tune = 0
+  end
+
+  def play_sid
     @asid.start if @asid
-    @sid.load_and_play("#{SID_PREFIX}/#{path}", 0)
+    if @current_tune >= @sid.tunes
+      @current_tune = 0
+    end
+    @sid.load_and_play(@current_path, @current_tune)
   end
 
   def hook_time_refresh
@@ -83,9 +95,14 @@ class Store
       @sid.pause
     else
       @play = true
-      @asid.start if @asid
+      @asid.start(@current_tune) if @asid
       @sid.unpause
     end
+  end
+
+  def play_tune
+    @play = true
+    @asid.start(@current_tune) if @asid
   end
 
   def play_time
@@ -95,7 +112,8 @@ class Store
   def play_random
     rand = rand(@list.length)
     Inesita::Browser.push_state("/" + @list[rand].last.gsub(SID_POSTFIX, ''))
-    play_sid(@list[rand].last)
+    set_sid(@list[rand].last)
+    play_sid
   end
 
   def change_midi
@@ -131,6 +149,17 @@ class Store
         play_random if @current_screen == :play
       when 32 then play_pause
       when 77 then change_midi
+      when 49 then @current_tune = 0; play_sid
+      when 50 then @current_tune = 1; play_sid
+      when 51 then @current_tune = 2; play_sid
+      when 52 then @current_tune = 3; play_sid
+      when 53 then @current_tune = 4; play_sid
+      when 54 then @current_tune = 5; play_sid
+      when 55 then @current_tune = 6; play_sid
+      when 56 then @current_tune = 7; play_sid
+      when 57 then @current_tune = 8; play_sid
+      when 58 then @current_tune = 9; play_sid
+      when 48 then @current_tune = 10; play_sid
       end
     end
   end

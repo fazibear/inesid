@@ -14,7 +14,8 @@ module StoreList
 
   def list_enter
     Inesita::Browser.push_state("/" + @list[@list_selected].last.gsub(Store::SID_POSTFIX, ''))
-    play_sid(@list[@list_selected].last)
+    set_sid(@list[@list_selected].last)
+    play_sid
   end
 
   def list_down

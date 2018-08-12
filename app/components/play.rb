@@ -20,7 +20,7 @@ class Play
     li { '                                        ' }
     li(class: :yellow){ " ██" }
     li { '                                        ' }
-    li { ' ' + store.current_song[:tunes].to_s[0..38] }
+    li { ' ' + (1..store.current_song[:tunes]).map {|i| "#{i}"}.join(" ") }
     li { '                                        ' }
   end
 end
