@@ -42,8 +42,6 @@ class Store
   end
 
   def setup_sid
-    p "setup sid..."
-
     @asid = ASID.new
     @sid = SID.new(1024)
     @sid.on_load do |x|
