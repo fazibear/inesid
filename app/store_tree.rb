@@ -1,8 +1,10 @@
 module StoreTree
   def fetch_tree
-    Bowser::HTTP.fetch(Store::TREE_JSON).then do |resp|
-      @tree = resp.json
-      render!
+    Browser::HTTP.get(Store::TREE_JSON) do |req|
+      req.on :success do |res|
+        @tree = res.json
+        render!
+      end
     end
   end
 
@@ -13,7 +15,7 @@ module StoreTree
   end
 
   def tree_path
-    '   /' + @tree_path.join('/')
+    "   /#{@tree_path.join('/')}"
   end
 
   def tree_enter

@@ -14,7 +14,7 @@ desc 'Download HVSC SID Collection'
 task :hvsc, [:hvsc] do |t, args|
   mkdir_p "tmp"
   ver = args[:hvsc] || 65
-  url = "http://www.prg.dtu.dk/HVSC/HVSC_#{ver}-all-of-them.zip"
+  url = "https://www.prg.dtu.dk/HVSC/HVSC_#{ver}-all-of-them.zip"
   puts "Downloading HVSC collection from #{url}..."
   sh "curl #{url} > ./tmp/hvsc.zip"
   puts "Unzipping ..."

@@ -2,7 +2,7 @@ require 'asidjs'
 require 'native'
 
 class ASID
-  include Native
+  include Native::Wrapper
 
   alias_native :tick
   alias_native :write

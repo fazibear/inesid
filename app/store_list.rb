@@ -1,8 +1,10 @@
 module StoreList
   def fetch_list
-    Bowser::HTTP.fetch(Store::LIST_JSON).then do |resp|
-      @list = resp.json
-      render!
+    Browser::HTTP.get(Store::LIST_JSON) do |req|
+      req.on :success do |res|
+        @list = res.json
+        render!
+      end
     end
   end
 

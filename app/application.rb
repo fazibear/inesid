@@ -5,8 +5,10 @@ require 'inesita-router'
 require 'sid'
 require 'web-midi'
 
-require 'bowser/window'
-require 'bowser/http'
+require 'promise'
+require 'browser'
+require 'browser/interval'
+require 'browser/http'
 
 require 'router'
 require 'asid'

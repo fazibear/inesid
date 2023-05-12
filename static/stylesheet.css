@@ -1,0 +1,53 @@
+@font-face {
+  font-family: "C64 Pro Mono";
+  src: url("/static/fonts/C64_Pro_Mono-STYLE.eot");
+  src: url("/static/fonts/C64_Pro_Mono-STYLE.eot?#iefix") format("embedded-opentype"), url("/static/fonts/C64_Pro_Mono-STYLE.woff2") format("woff2"), url("/static/fonts/C64_Pro_Mono-STYLE.woff") format("woff"), url("/static/fonts/C64_Pro_Mono-STYLE.ttf") format("truetype"), url("/static/fonts/C64_Pro_Mono-STYLE.svg#C64_Pro_Mono-STYLE") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+.black {
+  color: #000000; }
+
+.white {
+  color: #FFFFFF; }
+
+.red {
+  color: #68372B; }
+
+.cyan {
+  color: #70A4B2; }
+
+.purple {
+  color: #6F3D86; }
+
+.green {
+  color: #588D43; }
+
+.blue {
+  color: #352879; }
+
+.yellow {
+  color: #B8C76F; }
+
+.orange {
+  color: #6F4F25; }
+
+.brown {
+  color: #433900; }
+
+body {
+  background-color: #6C5EB5; }
+
+#screen {
+  font-family: "C64 Pro Mono";
+  font-size: 20px;
+  line-height: 20px;
+  list-style-type: none;
+  margin: 50px auto 0 auto;
+  padding: 0;
+  width: 800px;
+  height: 500px;
+  background-color: #352879;
+  color: #6C5EB5; }
+  #screen li {
+    white-space: pre-wrap;
+    word-wrap: break-word; }

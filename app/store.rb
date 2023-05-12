@@ -30,7 +30,11 @@ class Store
     @midi_out = WebMidi.support?
     @midi_out_index = -1
 
-    setup_sid
+    unless router.params[:all].empty?
+      set_sid("#{router.params[:all]}#{SID_POSTFIX}")
+      play_sid
+    end
+
     fetch_list
     fetch_tree
     hook_time_refresh
@@ -38,6 +42,8 @@ class Store
   end
 
   def setup_sid
+    p "setup sid..."
+
     @asid = ASID.new
     @sid = SID.new(1024)
     @sid.on_load do |x|
@@ -55,10 +61,6 @@ class Store
       @asid.write(addr, val)
     end
 
-    unless router.params[:all].empty?
-      set_sid("#{router.params[:all]}#{SID_POSTFIX}")
-      play_sid
-    end
   end
 
   def set_sid(path)
@@ -75,7 +77,7 @@ class Store
   end
 
   def hook_time_refresh
-    Bowser.window.interval(1) do
+    $window.every(1) do
       if @current_screen == :play
         render!
       end
@@ -128,8 +130,9 @@ class Store
   end
 
   def hook_keys
-    Bowser.window.on(:keydown) do |e|
-      case e.which
+    $document.on(:keydown) do |e|
+      setup_sid unless @sid
+      case e.code
       when 72 then @current_screen = :welcome; render!
       when 80 then go_to_play; render!
       when 76 then @current_screen = :list; render!
