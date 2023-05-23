@@ -4,7 +4,7 @@ require 'pathname'
 
 HVSC_PREFIX = './static/C64Music/'
 
-task default: [:hvsc, :build]
+task default: [:hvsc, :index, :build]
 
 desc 'build'
 task :build do
@@ -12,7 +12,7 @@ task :build do
 end
 
 desc 'Download HVSC SID Collection'
-task :hvsc, [:hvsc] do |t, args|
+task :hvsc, [:hvsc] do |_, args|
   mkdir_p "tmp"
   ver = args[:hvsc] || 65
   url = "https://www.prg.dtu.dk/HVSC/HVSC_#{ver}-all-of-them.zip"
@@ -20,7 +20,7 @@ task :hvsc, [:hvsc] do |t, args|
   sh "curl #{url} > ./tmp/hvsc.zip"
   puts "Unzipping ..."
   sh "unzip -o ./tmp/hvsc.zip -d ./tmp"
-  sh "unzip -o ./tmp/C64Music.zip -d ./static > /dev/null"
+  sh "unzip -o ./tmp/C64Music.zip -d ./static"
   rm_rf "tmp"
 end
 
