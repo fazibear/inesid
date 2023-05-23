@@ -4,10 +4,11 @@ require 'pathname'
 
 HVSC_PREFIX = './static/C64Music/'
 
+task default: :build
+
 desc 'build'
 task :build do
-  sh 'bundle exec inesita build -f > /dev/null'
-  sh 'cp _redirects dist/_redirects'
+  sh 'bundle exec inesita build -f'
 end
 
 desc 'Download HVSC SID Collection'
