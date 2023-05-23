@@ -4,7 +4,7 @@ require 'pathname'
 
 HVSC_PREFIX = './static/C64Music/'
 
-task default: :build
+task default: [:hvsc, :build]
 
 desc 'build'
 task :build do
