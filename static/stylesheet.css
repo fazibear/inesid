@@ -1,7 +1,7 @@
 @font-face {
   font-family: "C64 Pro Mono";
-  src: url("/static/fonts/C64_Pro_Mono-STYLE.eot");
-  src: url("/static/fonts/C64_Pro_Mono-STYLE.eot?#iefix") format("embedded-opentype"), url("/static/fonts/C64_Pro_Mono-STYLE.woff2") format("woff2"), url("/static/fonts/C64_Pro_Mono-STYLE.woff") format("woff"), url("/static/fonts/C64_Pro_Mono-STYLE.ttf") format("truetype"), url("/static/fonts/C64_Pro_Mono-STYLE.svg#C64_Pro_Mono-STYLE") format("svg");
+  src: url("/assets/fonts/C64_Pro_Mono-STYLE.eot");
+  src: url("/assets/fonts/C64_Pro_Mono-STYLE.eot?#iefix") format("embedded-opentype"), url("/static/fonts/C64_Pro_Mono-STYLE.woff2") format("woff2"), url("/static/fonts/C64_Pro_Mono-STYLE.woff") format("woff"), url("/static/fonts/C64_Pro_Mono-STYLE.ttf") format("truetype"), url("/static/fonts/C64_Pro_Mono-STYLE.svg#C64_Pro_Mono-STYLE") format("svg");
   font-weight: normal;
   font-style: normal; }
 .black {
