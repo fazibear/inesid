@@ -15,12 +15,11 @@ desc 'Download HVSC SID Collection'
 task :hvsc, [:hvsc] do |_, args|
   mkdir_p "tmp"
   ver = args[:hvsc] || 79
-  url = "https://www.prg.dtu.dk/HVSC/HVSC_#{ver}-all-of-them.zip"
+  url = "https://hvsc.brona.dk/HVSC/HVSC_#{ver}-all-of-them.rar"
   puts "Downloading HVSC collection from #{url}..."
-  sh "curl #{url} > ./tmp/hvsc.zip"
+  sh "curl #{url} > ./tmp/hvsc.rar"
   puts "Unzipping ..."
-  sh "unzip -o ./tmp/hvsc.zip -d ./tmp"
-  sh "unzip -o ./tmp/C64Music.zip -d ./static"
+  sh "unrar -x ./tmp/hvsc.rar -d ./static -y"
   rm_rf "tmp"
 end
 
