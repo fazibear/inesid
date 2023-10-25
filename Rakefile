@@ -19,7 +19,7 @@ task :hvsc, [:hvsc] do |_, args|
   puts "Downloading HVSC collection from #{url}..."
   sh "curl #{url} > ./tmp/hvsc.rar"
   puts "Unzipping ..."
-  sh "unrar -x ./tmp/hvsc.rar -d ./static -y"
+  sh "unrar x -y ./tmp/hvsc.rar ./static"
   rm_rf "tmp"
 end
 
