@@ -4,9 +4,9 @@ class Store
   include StoreTree
   attr_reader :current_screen, :current_song, :midi_out
 
-  SID_PREFIX = '/static/C64Music'
-  TREE_JSON = '/static/tree.json'
-  LIST_JSON = '/static/list.json'
+  SID_PREFIX = '/assets/C64Music'
+  TREE_JSON = '/assets/tree.json'
+  LIST_JSON = '/assets/list.json'
 
   SID_POSTFIX = '.sid'
 
